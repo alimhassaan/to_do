@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:to_do/core/theme/app_colors.dart';
 import 'package:to_do/core/theme/app_constans.dart';
+import 'package:to_do/features/auth/controllers/login_controller.dart';
 import 'package:to_do/features/auth/widgets/custom_buttom.dart';
 import 'package:to_do/features/auth/widgets/custom_text_field.dart';
 import 'package:to_do/features/auth/widgets/custom_divider.dart';
@@ -21,6 +22,37 @@ class _LoginPageState extends State<LoginPage> {
   bool isPasswordVisible = false;
   IconData arrow = Icons.arrow_forward;
 
+  final LoginController _controller = LoginController();
+  bool _isLoading = false;
+
+  Future<void> _handleLogin() async {
+    setState(() => _isLoading = true);
+
+    final error = await _controller.login(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+
+    setState(() => _isLoading = false);
+
+    if (!mounted) return;
+
+    if (error != null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error)));
+    } else {
+      _controller.navigateToHome(context);
+    }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +71,34 @@ class _LoginPageState extends State<LoginPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const Gap(250),
+                    const Gap(80),
+                    RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Welcome ',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          TextSpan(
+                            text: 'Back',
+                            style: TextStyle(color: Color(0xFF3DDC97)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Gap(6),
+                    Text(
+                      'Login to continue your journey',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.6),
+                        fontSize: 14,
+                      ),
+                    ),
+                    const Gap(10),
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 14,
@@ -82,10 +141,13 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             ),
                           ),
-                          Gap(20),
+                          const Gap(20),
                           const ForgotPassword(),
                           const Gap(20),
-                          CustomButtom(text: 'Log In', onPressed: () {}),
+                          CustomButtom(
+                            text: _isLoading ? 'Loading...' : 'Log In',
+                            onPressed: _isLoading ? null : _handleLogin,
+                          ),
                           const Gap(20),
                           const CustomDivider(color: Colors.white),
                           const Gap(20),

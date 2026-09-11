@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:to_do/core/theme/app_constans.dart';
+import 'package:to_do/features/auth/controllers/signup_controller.dart';
 import 'package:to_do/features/auth/widgets/custom_buttom.dart';
 import 'package:to_do/features/auth/widgets/custom_text_field.dart';
 
@@ -19,6 +20,41 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
+  final SignUpController _controller = SignUpController();
+  bool _isLoading = false;
+
+  Future<void> _handleSignUp() async {
+    setState(() => _isLoading = true);
+
+    final error = await _controller.signUp(
+      name: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      confirmPassword: confirmPasswordController.text,
+    );
+
+    setState(() => _isLoading = false);
+
+    if (!mounted) return;
+
+    if (error != null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error)));
+    } else {
+      _controller.navigateToHome(context);
+    }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +72,24 @@ class _SignUpPageState extends State<SignUpPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const Gap(130),
+                    const Gap(80),
 
-                    const Text(
-                      'Create Account',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Create ',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          TextSpan(
+                            text: 'Account',
+                            style: TextStyle(color: Color(0xFF3DDC97)),
+                          ),
+                        ],
                       ),
                     ),
                     const Gap(6),
@@ -131,10 +177,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           const Gap(24),
                           CustomButtom(
-                            text: 'Sign Up',
-                            onPressed: () {
-                              // لوجيك التسجيل
-                            },
+                            text: _isLoading ? 'Loading...' : 'Sign Up',
+                            onPressed: _isLoading ? null : _handleSignUp,
                           ),
                           const Gap(20),
                         ],
@@ -142,7 +186,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     const Gap(20),
 
-                    // Already have an account
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -155,7 +198,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         const Gap(2),
                         GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, AppConstans.login),
+                          onTap: () =>
+                              Navigator.pushNamed(context, AppConstans.login),
                           child: const Text(
                             'Log In',
                             style: TextStyle(
