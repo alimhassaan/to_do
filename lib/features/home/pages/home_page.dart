@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/core/theme/app_colors.dart';
-import 'package:to_do/core/theme/services/auth_services.dart';
+import 'package:to_do/core/services/auth_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

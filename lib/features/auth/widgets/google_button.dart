@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/core/theme/app_constans.dart';
-import 'package:to_do/core/theme/services/auth_services.dart';
+import 'package:to_do/core/services/auth_services.dart';
 
 class GoogleButton extends StatefulWidget {
   const GoogleButton({super.key});
