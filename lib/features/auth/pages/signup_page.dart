@@ -5,6 +5,8 @@ import 'package:to_do/features/auth/controllers/signup_controller.dart';
 import 'package:to_do/features/auth/widgets/custom_buttom.dart';
 import 'package:to_do/features/auth/widgets/custom_text_field.dart';
 
+import '../../../core/theme/app_colors.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -87,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           TextSpan(
                             text: 'Account',
-                            style: TextStyle(color: Color(0xFF3DDC97)),
+                            style: TextStyle(color:AppColors.primaryColor),
                           ),
                         ],
                       ),
@@ -111,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
-                          color: const Color(0xFF3DDC97).withValues(alpha: 0.3),
+                          color:  AppColors.primaryColor.withValues(alpha: 0.6),
                         ),
                       ),
                       child: Column(
@@ -203,7 +205,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: const Text(
                             'Log In',
                             style: TextStyle(
-                              color: Color(0xFF3DDC97),
+                              color: AppColors.primaryColor,
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),
