@@ -31,7 +31,7 @@ class SignUpController {
     Navigator.pushNamedAndRemoveUntil(
       context,
       AppConstans.home,
-      (route) => false,
+      (route) => true,
     );
   }
 }
