@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:to_do/core/theme/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -21,17 +22,17 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const accentGreen = Color(0xFF3DDC97);
+   
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: accentGreen.withValues(alpha: 0.3)),
+        border: Border.all(color: AppColors.primaryColor.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
-          Icon(icon, color: accentGreen, size: 20),
+          Icon(icon, color: AppColors.primaryColor, size: 20),
           const Gap(12),
           Expanded(
             child: TextField(
@@ -45,7 +46,7 @@ class CustomTextField extends StatelessWidget {
                 label: Text(
                   label,
                   style: TextStyle(
-                    color: accentGreen.withValues(alpha: 0.9),
+                    color: AppColors.primaryColor.withValues(alpha: 0.9),
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

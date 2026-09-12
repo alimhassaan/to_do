@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/core/theme/app_colors.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});
@@ -11,7 +12,7 @@ class ForgotPassword extends StatelessWidget {
         onTap: () {},
         child: const Text(
           'Forgot password?',
-          style: TextStyle(color: Color(0xFF3DDC97), fontSize: 13),
+          style: TextStyle(color: AppColors.primaryColor, fontSize: 13),
         ),
       ),
     );
