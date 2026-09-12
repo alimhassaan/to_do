@@ -17,6 +17,7 @@ class _HomePageState
     extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final List<Widget> navPage = [
       HomePage(),
       StopWatchTimer(),

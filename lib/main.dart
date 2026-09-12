@@ -5,7 +5,7 @@ import 'package:to_do/core/theme/app_colors.dart';
 import 'package:to_do/core/theme/app_constans.dart';
 import 'package:to_do/features/auth/pages/login_page.dart';
 import 'package:to_do/features/auth/pages/signup_page.dart';
-import 'package:to_do/features/home/pages/home_page.dart';
+import 'package:to_do/features/home/Navigation-Bar/home_page.dart';
 import 'package:to_do/firebase_options.dart';
 
 void main() async {
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         AppConstans.login: (context) => const LoginPage(),
         AppConstans.signup: (context) => const SignUpPage(),
         AppConstans.home: (context) => const HomePage(),
+        
       },
     );
   }
